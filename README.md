@@ -7,7 +7,7 @@
     <img alt = "Issues" src="https://img.shields.io/github/issues/moniquedsilva/moviebox">
 </p>
 
-## Links
+### Links
 [Proposta](https://docs.google.com/presentation/d/1ZFmNTl_J1z1zFfDj0APUG5PGdL459QwKcUtnf4H48xU/edit#slide=id.ge7debf7083_0_0) | 
 [Requisitos](https://docs.google.com/spreadsheets/d/1mP9sHRCpoDyPzAqeXPOXbrTp8NNgGUztj0FgI-nQb7k/edit?usp=sharing) | 
 [Protótipo](https://www.figma.com/file/c2RJlrC3kbbUfr1EI1tzdL/MATE85-Equipe2?node-id=0%3A1) | 
@@ -77,19 +77,19 @@ $ yarn run dev
 # A página será aberta em http://localhost:3000.
 ```
 
-#### Requerimentos
+### Requerimentos
 
 -   Node.js >= 12.22.0
 -   Yarn 1
 
-#### Estrutura dos diretórios
+### Estrutura dos diretórios
 
 **Front-end**
 -   `.vscode` — Manter estilos de codificação consistentes.
 -   `public` — Aquivos estáticos, como imagens e favicon.
 -   `src` — Código-fonte do aplicativo, incluindo páginas, componentes, estilos.
 
-#### Scripts
+### Scripts
 
 **Front-end**
 -   `yarn dev` — Inicia o aplicativo no modo de desenvolvimento em http://localhost:3000.
