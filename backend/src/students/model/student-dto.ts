@@ -1,7 +1,6 @@
-import { IsString, IsEmail, IsUrl, IsDate } from "class-validator"
+import { IsString, IsEmail, IsUrl, IsDate } from 'class-validator';
 
 export class StudentDTO {
-  
   @IsString()
   readonly name: string;
 

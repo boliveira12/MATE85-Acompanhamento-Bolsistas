@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: "postgres",
+      type: 'postgres',
       host: 'localhost',
       port: parseInt(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USERNAME,
@@ -13,7 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,
-    })
-  ]
+    }),
+  ],
 })
 export class DatabaseModule {}

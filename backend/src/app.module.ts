@@ -7,13 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { StudentsModule } from './students/students.module';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    ConfigModule.forRoot(),
-    StudentsModule,
-  ],
+  imports: [DatabaseModule, ConfigModule.forRoot(), StudentsModule],
   controllers: [],
   providers: [],
 })
-
 export class AppModule {}

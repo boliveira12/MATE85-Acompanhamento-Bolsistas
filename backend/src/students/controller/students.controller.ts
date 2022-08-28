@@ -25,7 +25,7 @@ export class StudentsController {
   findByEmail(@Param('email') email: string) {
     return this.studentsService.findByEmail(email);
   }
-  
+
   @Get(':advisor_name')
   findByAdvisorName(@Param('advisor_name') advisor_name: string) {
     return this.studentsService.findByAdvisorName(advisor_name);
@@ -40,5 +40,4 @@ export class StudentsController {
   updateStudent(@Body() student: StudentDTO) {
     return this.studentsService.updateStudent(student); //TODO : update student
   }
-  
 }
