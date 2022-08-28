@@ -160,7 +160,7 @@ $ npm start
 -   `yarn lint` — Executa o ESLint para todos os arquivos no diretório src.
 -   `yarn lint:fix` — Executa o ESLint e corrige erros de formatação para todos os arquivos no diretório src.
 -   `yarn format` — Executa o Prettier para todos os arquivos no diretório src.
--   
+
 **Back-end**
 -   `npm start` — Inicia a aplicação escutando na porta http://localhost:3000 caso outra não seja configurada manualmente.
 -   `npm build` — Cria uma compilação de produção otimizada da aplicação.
