@@ -45,7 +45,7 @@
 
 -   **Líder**: Lucas de Andrade Lima
 -   **Vice-líder:** Bruno Oliveira
--   **Front-end:** Beatriz Machado da Cruz, Danilo Chaimsohn Gonçalves, Monique Santos da Silva
+-   **Front-end:** Beatriz Machado da Cruz, Bruno de Lucas Santos Barbosa, Danilo Chaimsohn Gonçalves, Monique Santos da Silva
 -   **Back-end:** Breno Henrique Rosas do Nascimento, Bruno de Lucas Santos Barbosa, Gabriel Macedo, Gustavo Oliveira Quinteiro
 -   **UX/UI design:** Monique Santos da Silva
 
