@@ -70,11 +70,19 @@ $ cd /MATE85-Acompanhamento-Bolsistas/frontend
 
 # Execute o yarn install para instalar as dependências
 $ yarn install
+```
+
+### Executando o projeto localmente
+
+**Front-end**
+```bash
+# Abra a pasta do projeto
+$ cd /MATE85-Acompanhamento-Bolsistas/frontend
 
 # Execute yarn run dev para iniciar
 $ yarn run dev
 
-# A página será aberta em http://localhost:3000.
+# A página será aberta em http://localhost:3000 ou outro número de porta designado
 ```
 
 ### Requerimentos
