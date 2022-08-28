@@ -15,7 +15,7 @@
 
 ### Sumário
 
--   [Informações comerciais](#informações-comerciais)
+-   [Informações Gerais](#informações-gerais)
 -   [Equipe](#equipe)
 -   [Especificações técnicas](#especificações-técnicas)
     -   [Tecnologias utilizadas](#tecnologias-utilizadas)
@@ -48,7 +48,7 @@
 **Front-end:**
 -   ⚛️ React 18.
 -   ⛑ Javascript.
--   💅 TailwindCSS 3.
+-   🎨 TailwindCSS 3.
 -   📏 ESLint — Encontre e corrija problemas em seu código.
 -   💖 Prettier — Formatador de código para estilo consistente.
 -   ⚙️ EditorConfig - Manter estilos de codificação consistentes entre editores e IDEs.
