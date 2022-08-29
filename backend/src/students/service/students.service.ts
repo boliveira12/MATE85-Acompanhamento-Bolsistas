@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { StudentEntity } from '../entities/students.entity';
-import { Repository } from "typeorm";
-import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { StudentDTO } from '../model/student-dto';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class StudentsService {
   findByEmail(email: string) {
     return `This action returns a student by email FROM REPOSITORY`;
   }
-  
+
   findByAdvisorName(advisor_name: string) {
     return `This action returns a student by advisor_name : ${advisor_name} FROM REPOSITORY`;
   }

@@ -6,6 +6,8 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Typescript](https://www.typescriptlang.org/)
 - [NestJS](https://nestjs.com/)
 
+https://lucid.app/lucidchart/976137d3-7e4d-474e-9ffc-8e4faaf84cb9/edit?viewport_loc=-389%2C-102%2C2554%2C1242%2C0_0&invitationId=inv_bf1a5475-e43a-4192-97ed-f61d0c122bc2#
+
 ## 🚀 Como executar
 
 - Clone o repositório
