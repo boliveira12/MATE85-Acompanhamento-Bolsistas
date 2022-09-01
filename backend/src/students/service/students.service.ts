@@ -1,39 +1,77 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { StudentEntity } from '../entities/students.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StudentDTO } from '../model/student-dto';
+import { StudentDTO } from '../model/student.dto.input';
 
 @Injectable()
 export class StudentsService {
-  constructor(@InjectRepository(StudentEntity) private studentRepository: Repository<StudentEntity>) {}
+  constructor(
+    @InjectRepository(StudentEntity)
+    private studentRepository: Repository<StudentEntity>,
+  ) {}
 
-  async findAllStudents(): Promise<StudentEntity[]> {
-    return await this.studentRepository.find();
-    // TODO: Return DTO instead of Entity
+  async findAllStudents(): Promise<StudentDTO[]> {
+    return await (await this.studentRepository.find()).map((student) => student.toStudent());
   }
 
-  findById(id: number) {
-    return `This action returns a student by id ${id} FROM REPOSITORY`;
+  async findById(id: number): Promise<StudentDTO> {
+    try {
+      const findStudent = await this.studentRepository.findOneBy({ id });
+      if (findStudent) return findStudent.toStudent();
+
+      throw new NotFoundException('Student not found');
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findByCourse(course: string) {
-    return `This action returns all students by course : ${course} FROM REPOSITORY`;
+  async findByCourse(course: string): Promise<StudentDTO[]> {
+    try {
+      return await (
+        await this.studentRepository.find({
+          where: { course: ILike(`%${course}%`) },
+        })
+      ).map((student) => student.toStudent());
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findByEmail(email: string) {
-    return `This action returns a student by email FROM REPOSITORY`;
+  async findByEmail(email: string): Promise<StudentDTO> {
+    try {
+      const findStudent = await this.studentRepository.findOne({
+        where: { email },
+      });
+      if (findStudent) return findStudent.toStudent();
+
+      throw new NotFoundException('Student not found');
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findByAdvisorName(advisor_name: string) {
-    return `This action returns a student by advisor_name : ${advisor_name} FROM REPOSITORY`;
+  async findByAdvisorId(advisor_id: number): Promise<StudentDTO[]> {
+    try {
+      return await (
+        await this.studentRepository.find({
+          where: { advisor_id: advisor_id },
+        })
+      ).map((student) => student.toStudent());
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  createStudent(student: StudentDTO) {
-    return student; //TODO : create student
+  async createStudent(student: StudentDTO) {
+    try {
+      await this.studentRepository.save(student);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  updateStudent(student: StudentDTO) {
+  async updateStudent(student: StudentDTO) {
     return student; //TODO : update student
   }
 }
