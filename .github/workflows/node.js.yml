@@ -10,42 +10,29 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
+      runs-on: ubuntu-latest
+      steps:
+      # Pipe Frontend
+      - name: Install dependencies
+        run: |
+          cd frontend; npm ci
 
-    runs-on: ubuntu-latest
+      - name: Tests
+        run: |
+            cd frontend; npm test
+      - name: Lint
+        run: |
+          cd frontend; npm run lint
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+      # Pipe Backend    
+      - name: Install dependencies
+        run: |
+          cd backend; npm ci
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'cd frontend; npm'
-    # Pipe Frontend
-    - name: Install dependencies
-      run: |
-        cd frontend; npm ci
-    
-    - name: Tests
-      run: |
-          cd frontend; npm test
-    - name: Lint
-      run: |
-        cd frontend; npm run lint
-    
-    # Pipe Backend    
-    - name: Install dependencies
-      run: |
-        cd backend; npm ci
-    
-    - name: Tests
-      run: |
-          cd backend; npm test
-    - name: Lint
-      run: |
-        cd backend; npm run lint
+      - name: Tests
+        run: |
+            cd backend; npm test
+      - name: Lint
+        run: |
+          cd backend; npm run lint
