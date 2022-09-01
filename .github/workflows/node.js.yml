@@ -23,8 +23,7 @@ jobs:
       # Pipe Frontend
       - name: Install dependencies
         run: |
-          cd frontend
-          npm install
+          cd frontend && npm install
 
       - name: Tests
         run: |
