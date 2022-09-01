@@ -6,17 +6,17 @@ import { StudentsService } from '../service/students.service';
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
  
-  @Get('/bycourse')
+  @Get('find/bycourse')
   async findByCourse(@Query('course') course: string) {
     return await this.studentsService.findByCourse(course);
   }
 
-  @Get('all')
-  findAllStudents() {
-    return this.studentsService.findAllStudents();
+  @Get('/list/all')
+  async findAllStudents() {
+    return await this.studentsService.findAllStudents();
   }
 
-  @Get(':id')
+  @Get('find/byid/:id')
   async findById(@Param('id') id: number) {
     const student: StudentDTO = await this.studentsService.findById(id);
    
@@ -25,23 +25,27 @@ export class StudentsController {
     return student;
   }
 
-  @Get(':email')
-  findByEmail(@Param('email') email: string) {
-    return this.studentsService.findByEmail(email);
+  @Get('find/byemail')
+  async findByEmail(@Query('email') email: string) {
+    const student: StudentDTO = await this.studentsService.findByEmail(email);
+   
+    if (!student) throw new NotFoundException("Student not found");
+   
+    return student;
   }
 
-  @Get(':advisor_name')
-  findByAdvisorName(@Param('advisor_name') advisor_name: string) {
-    return this.studentsService.findByAdvisorName(advisor_name);
+  @Get('/find/byadvisorid/:advisor_id')
+  async findByAdvisorId(@Param('advisor_id') advisor_id: number) {
+    return await this.studentsService.findByAdvisorId(advisor_id);
   }
 
   @Post()
-  createStudent(@Body() student: StudentDTO) {
-    return this.studentsService.createStudent(student); //TODO : create student
+  async createStudent(@Body() student: StudentDTO) {
+    return await this.studentsService.createStudent(student); //TODO : create student
   }
 
   @Patch()
-  updateStudent(@Body() student: StudentDTO) {
+  async updateStudent(@Body() student: StudentDTO) {
     return this.studentsService.updateStudent(student); //TODO : update student
   }
 }

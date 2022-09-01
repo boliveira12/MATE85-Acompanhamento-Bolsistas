@@ -24,7 +24,7 @@ export class StudentsService {
     }
   }
 
-  async findByCourse(course: string) {
+  async findByCourse(course: string): Promise<StudentDTO[]> {
     try {
       return await (await this.studentRepository.find({
         where: { course: ILike(`%${course}%`) },
@@ -35,12 +35,27 @@ export class StudentsService {
     }
   }
 
-  findByEmail(email: string) {
-    return `This action returns a student by email FROM REPOSITORY`;
+  async findByEmail(email: string): Promise<StudentDTO> {
+    try {
+      const findStudent = await this.studentRepository.findOne({where: {email}});
+      if (findStudent) return findStudent.toStudent();
+      
+      throw new NotFoundException("Student not found");
+
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findByAdvisorName(advisor_name: string) {
-    return `This action returns a student by advisor_name : ${advisor_name} FROM REPOSITORY`;
+  async findByAdvisorId(advisor_id: number): Promise<StudentDTO[]> {
+    try {
+      return await (await this.studentRepository.find({
+        where: { advisor_id: advisor_id },
+      })).map(student => student.toStudent());
+    
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   async createStudent(student: StudentDTO) {
@@ -51,7 +66,7 @@ export class StudentsService {
     }
   }
 
-  updateStudent(student: StudentDTO) {
+  async updateStudent(student: StudentDTO) {
     return student; //TODO : update student
   }
 }
