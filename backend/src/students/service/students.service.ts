@@ -2,19 +2,26 @@ import { Injectable } from '@nestjs/common';
 import { StudentEntity } from '../entities/students.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StudentDTO } from '../model/student-dto';
+import { StudentDTO } from '../model/student.dto.input';
 
 @Injectable()
 export class StudentsService {
   constructor(@InjectRepository(StudentEntity) private studentRepository: Repository<StudentEntity>) {}
 
-  async findAllStudents(): Promise<StudentEntity[]> {
-    return await this.studentRepository.find();
-    // TODO: Return DTO instead of Entity
+  async findAllStudents(): Promise<StudentDTO[]> {
+    return await (await this.studentRepository.find()).map(student => student.toStudent());
   }
 
-  findById(id: number) {
-    return `This action returns a student by id ${id} FROM REPOSITORY`;
+  async findById(id: number) {
+    const findStudent = await this.studentRepository.findOne({
+      where: {
+        id: id
+      }
+    });
+
+    if (!findStudent) {
+      return 'Student not found';
+    }
   }
 
   findByCourse(course: string) {
