@@ -20,11 +20,27 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+      # Pipe Frontend
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Tests
+        run: |
+            cd frontend
+            npm test
+            
+      - name: Lint
+        run: |
+          cd frontend
+          npm run lint
+
 
       # Pipe Backend    
       - name: Install dependencies
         run: |
-          cd backend; npm ci
+          cd backend; npm install
 
       - name: Tests
         run: |
