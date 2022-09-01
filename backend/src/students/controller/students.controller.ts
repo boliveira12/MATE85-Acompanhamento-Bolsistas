@@ -1,12 +1,17 @@
-import { Body, Controller, Get, NotFoundException, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { StudentDTO } from '../model/student.dto.input';
 import { StudentsService } from '../service/students.service';
 
 @Controller('v1/students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
+ 
+  @Get('/bycourse')
+  async findByCourse(@Query('course') course: string) {
+    return await this.studentsService.findByCourse(course);
+  }
 
-  @Get()
+  @Get('all')
   findAllStudents() {
     return this.studentsService.findAllStudents();
   }
@@ -18,11 +23,6 @@ export class StudentsController {
     if (!student) throw new NotFoundException("Student not found");
    
     return student;
-  }
-
-  @Get(':course')
-  findByCourse(@Param('course') course: string) {
-    return this.studentsService.findByCourse(course);
   }
 
   @Get(':email')

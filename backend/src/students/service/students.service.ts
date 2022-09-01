@@ -1,6 +1,6 @@
-import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { StudentEntity } from '../entities/students.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StudentDTO } from '../model/student.dto.input';
 
@@ -18,14 +18,21 @@ export class StudentsService {
       if (findStudent) return findStudent.toStudent();
       
       throw new NotFoundException("Student not found");
-      
+
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
 
-  findByCourse(course: string) {
-    return `This action returns all students by course : ${course} FROM REPOSITORY`;
+  async findByCourse(course: string) {
+    try {
+      return await (await this.studentRepository.find({
+        where: { course: ILike(`%${course}%`) },
+      })).map(student => student.toStudent());
+    
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   findByEmail(email: string) {
@@ -36,8 +43,12 @@ export class StudentsService {
     return `This action returns a student by advisor_name : ${advisor_name} FROM REPOSITORY`;
   }
 
-  createStudent(student: StudentDTO) {
-    return student; //TODO : create student
+  async createStudent(student: StudentDTO) {
+    try {
+	    await this.studentRepository.save(student);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   updateStudent(student: StudentDTO) {

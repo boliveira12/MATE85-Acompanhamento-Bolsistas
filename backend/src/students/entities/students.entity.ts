@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { StudentDTO } from '../model/student.dto.input';
 
-@Entity()
+@Entity("student")
 export class StudentEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -36,7 +36,7 @@ export class StudentEntity {
   @Column({nullable: false})
   password: string;
 
-  @Column({nullable: false, default: 'STUDENT'})
+  @Column({nullable: true, default: 'STUDENT'})
   role: string;
 
   toStudent() : StudentDTO {
@@ -50,7 +50,6 @@ export class StudentEntity {
       this.advisor_id,
       this.enrollment_date_pgcomp,
       this.phone_number,
-      this.password,
       this.role);
   }
 }

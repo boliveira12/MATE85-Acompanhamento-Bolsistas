@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsString, IsEmail, IsUrl, IsDate, IsNumber } from 'class-validator';
 
 export class StudentDTO {
@@ -11,7 +12,6 @@ export class StudentDTO {
     advisor_id: number,
     enrollment_date_pgcomp: Date,
     phone_number: string,
-    password: string,
     role: string,
   ) {
     this.tax_id = tax_id;
@@ -23,14 +23,13 @@ export class StudentDTO {
     this.advisor_id = advisor_id;
     this.enrollment_date_pgcomp = enrollment_date_pgcomp;
     this.phone_number = phone_number;
-    this.password = password;
     this.role = role;
   }
 
   @IsString()
   readonly tax_id: string;
 
-  @IsDate()
+  @IsString()
   readonly enrolment_number: string;
 
   @IsString()
@@ -48,6 +47,7 @@ export class StudentDTO {
   @IsNumber()
   readonly advisor_id: number;
 
+  @Type(() => Date)
   @IsDate()
   readonly enrollment_date_pgcomp: Date;
 
