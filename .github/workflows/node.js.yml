@@ -22,27 +22,27 @@ jobs:
     steps:
       # Pipe Frontend
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm install
 
       - name: Tests
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm test
             
       - name: Lint
-        working-directory: ./backend
+        working-directory: backend
         run: npm run lint
 
 
       # Pipe Backend    
       - name: Install dependencies
-        working-directory: ./backend
+        working-directory: backend
         run: npm install
 
       - name: Tests
-        working-directory: ./backend
+        working-directory: backend
         run: npm test
             
       - name: Lint
-        working-directory: ./backend
+        working-directory: backend
         run: npm run lint
