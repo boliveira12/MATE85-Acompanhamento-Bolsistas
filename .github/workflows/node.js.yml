@@ -20,8 +20,8 @@ jobs:
     steps:
       # Pipe Frontend
       - name: Install dependencies
-        working-directory: ${{ matrix.package }}frontend
         run: npm install
+        working-directory: ./frontend
 
       - name: Tests
         working-directory: frontend
