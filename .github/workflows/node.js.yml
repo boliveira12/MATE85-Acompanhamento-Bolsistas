@@ -20,7 +20,7 @@ jobs:
     steps:
       # Pipe Frontend
       - name: Install dependencies
-        working-directory: './frontend'
+        working-directory: ./MATE85-Acompanhamento-Bolsistas/frontend
         run: npm install
 
       - name: Tests
