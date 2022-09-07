@@ -1,5 +1,5 @@
 import { Body, Controller, Get, NotFoundException, Param, Patch, Post, Query } from '@nestjs/common';
-import { StudentDTO } from '../model/student.dto.input';
+import { CreateStudentDTO, ResponseStudentDTO } from '../model/student.dto.input';
 import { StudentsService } from '../service/students.service';
 
 @Controller('v1/students')
@@ -18,16 +18,16 @@ export class StudentsController {
 
   @Get('find/byid/:id')
   async findById(@Param('id') id: number) {
-    const student: StudentDTO = await this.studentsService.findById(id);
+    const student: ResponseStudentDTO = await this.studentsService.findById(id);
 
     if (!student) throw new NotFoundException('Student not found');
-
+    
     return student;
   }
 
   @Get('find/byemail')
   async findByEmail(@Query('email') email: string) {
-    const student: StudentDTO = await this.studentsService.findByEmail(email);
+    const student: ResponseStudentDTO = await this.studentsService.findByEmail(email);
 
     if (!student) throw new NotFoundException('Student not found');
 
@@ -40,12 +40,12 @@ export class StudentsController {
   }
 
   @Post()
-  async createStudent(@Body() student: StudentDTO) {
+  async createStudent(@Body() student: CreateStudentDTO) {
     return await this.studentsService.createStudent(student); //TODO : create student
   }
 
   @Patch()
-  async updateStudent(@Body() student: StudentDTO) {
+  async updateStudent(@Body() student: CreateStudentDTO) {
     return this.studentsService.updateStudent(student); //TODO : update student
   }
 }
