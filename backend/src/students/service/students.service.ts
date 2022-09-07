@@ -3,7 +3,7 @@ import { StudentEntity } from '../entities/students.entity';
 import { ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStudentDTO, ResponseStudentDTO } from '../model/student.dto.input';
-import { hashPassword } from 'src/utils/bcrypt';
+import { hashPassword } from '../../utils/bcrypt';
 
 @Injectable()
 export class StudentsService {
@@ -66,8 +66,10 @@ export class StudentsService {
 
   async createStudent(student: CreateStudentDTO) {
     try {
-      const password = hashPassword(student.password);
-      await this.studentRepository.save(student);
+      const passwordHash = await hashPassword(student.password);
+      const newStudent = this.studentRepository.create({...student, password: passwordHash});
+      return await this.studentRepository.save(newStudent);
+      
     } catch (error) {
       throw new BadRequestException(error.message);
     }
