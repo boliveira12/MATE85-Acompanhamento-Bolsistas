@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { StudentDTO } from '../model/student.dto.input';
+import { CreateStudentDTO, ResponseStudentDTO } from '../model/student.dto.input';
 
 @Entity('student')
 export class StudentEntity {
@@ -39,8 +39,9 @@ export class StudentEntity {
   @Column({ nullable: true, default: 'STUDENT' })
   role: string;
 
-  toStudent(): StudentDTO {
-    return new StudentDTO(
+  toStudent(): ResponseStudentDTO {
+    return new ResponseStudentDTO(
+      this.id,
       this.tax_id,
       this.enrolment_number,
       this.name,

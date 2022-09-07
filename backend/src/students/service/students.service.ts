@@ -2,7 +2,8 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { StudentEntity } from '../entities/students.entity';
 import { ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StudentDTO } from '../model/student.dto.input';
+import { CreateStudentDTO, ResponseStudentDTO } from '../model/student.dto.input';
+import { comparePassword, hashPassword } from '../../utils/bcrypt';
 
 @Injectable()
 export class StudentsService {
@@ -11,11 +12,11 @@ export class StudentsService {
     private studentRepository: Repository<StudentEntity>,
   ) {}
 
-  async findAllStudents(): Promise<StudentDTO[]> {
+  async findAllStudents(): Promise<ResponseStudentDTO[]> {
     return await (await this.studentRepository.find()).map((student) => student.toStudent());
   }
 
-  async findById(id: number): Promise<StudentDTO> {
+  async findById(id: number): Promise<ResponseStudentDTO> {
     try {
       const findStudent = await this.studentRepository.findOneBy({ id });
       if (findStudent) return findStudent.toStudent();
@@ -26,7 +27,7 @@ export class StudentsService {
     }
   }
 
-  async findByCourse(course: string): Promise<StudentDTO[]> {
+  async findByCourse(course: string): Promise<ResponseStudentDTO[]> {
     try {
       return await (
         await this.studentRepository.find({
@@ -38,7 +39,7 @@ export class StudentsService {
     }
   }
 
-  async findByEmail(email: string): Promise<StudentDTO> {
+  async findByEmail(email: string): Promise<ResponseStudentDTO> {
     try {
       const findStudent = await this.studentRepository.findOne({
         where: { email },
@@ -51,7 +52,7 @@ export class StudentsService {
     }
   }
 
-  async findByAdvisorId(advisor_id: number): Promise<StudentDTO[]> {
+  async findByAdvisorId(advisor_id: number): Promise<ResponseStudentDTO[]> {
     try {
       return await (
         await this.studentRepository.find({
@@ -63,15 +64,18 @@ export class StudentsService {
     }
   }
 
-  async createStudent(student: StudentDTO) {
+  async createStudent(student: CreateStudentDTO) {
     try {
-      await this.studentRepository.save(student);
+      const passwordHash = await hashPassword(student.password);
+      const newStudent = this.studentRepository.create({...student, password: passwordHash});
+      await this.studentRepository.save(newStudent);
+
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
 
-  async updateStudent(student: StudentDTO) {
+  async updateStudent(student: CreateStudentDTO) {
     return student; //TODO : update student
   }
 }
