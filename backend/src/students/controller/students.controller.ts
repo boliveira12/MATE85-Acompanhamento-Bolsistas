@@ -15,42 +15,36 @@ import { StudentsService } from '../service/students.service'
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
-  @Get('find/bycourse')
-  async findByCourse(
-    @Query('course') course: string
-  ): Promise<ResponseStudentDTO[]> {
-    return (await this.studentsService.findByCourse(course)).map((students) =>
-      students.toStudent()
-    )
-  }
-
   @Get('/list/all')
   async findAllStudents() {
-    return (await this.studentsService.findAllStudents()).map((students) =>
-      students.toStudent()
-    )
+    return await this.studentsService.findAllStudents()
   }
 
   @Get('find/byid/:id')
   async findById(@Param('id') id: number) {
-    return await (await this.studentsService.findById(id)).toStudent()
+    return await this.studentsService.findById(id)
+  }
+
+  @Get('find/bycourse')
+  async findByCourse(
+    @Query('course') course: string
+  ): Promise<ResponseStudentDTO[]> {
+    return await this.studentsService.findByCourse(course)
   }
 
   @Get('find/byemail')
   async findByEmail(@Query('email') email: string) {
-    return await (await this.studentsService.findByEmail(email)).toStudent()
+    return await this.studentsService.findByEmail(email)
   }
 
   @Get('/find/byadvisorid/:advisor_id')
   async findByAdvisorId(@Param('advisor_id') advisor_id: number) {
-    return (await this.studentsService.findByAdvisorId(advisor_id)).map(
-      (students) => students.toStudent()
-    )
+    return await this.studentsService.findByAdvisorId(advisor_id)
   }
 
   @Post()
   async createStudent(@Body() student: CreateStudentDTO) {
-    return this.studentsService.createStudent(student) // TODO : create student
+    return this.studentsService.createStudent(student)
   }
 
   @Patch()

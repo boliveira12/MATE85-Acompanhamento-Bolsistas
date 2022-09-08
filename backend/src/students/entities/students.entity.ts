@@ -38,20 +38,22 @@ export class StudentEntity {
 
   @Column({ nullable: true, default: 'STUDENT' })
   role: string
+}
 
-  toStudent(): ResponseStudentDTO {
-    return new ResponseStudentDTO(
-      this.id,
-      this.tax_id,
-      this.enrolment_number,
-      this.name,
-      this.email,
-      this.course,
-      this.link_lattes,
-      this.advisor_id,
-      this.enrollment_date_pgcomp,
-      this.phone_number,
-      this.role
-    )
-  }
+export function toStudentResponseDTO(
+  student: StudentEntity
+): ResponseStudentDTO {
+  return new ResponseStudentDTO(
+    student.id,
+    student.tax_id,
+    student.enrolment_number,
+    student.name,
+    student.email,
+    student.course,
+    student.link_lattes,
+    student.advisor_id,
+    student.enrollment_date_pgcomp,
+    student.phone_number,
+    student.role
+  )
 }
