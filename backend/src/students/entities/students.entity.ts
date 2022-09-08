@@ -1,43 +1,43 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { CreateStudentDTO, ResponseStudentDTO } from '../model/student.dto.input';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { ResponseStudentDTO } from '../model/student.response.dto'
 
 @Entity('student')
 export class StudentEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column({ length: 14, nullable: false, unique: true })
-  tax_id: string;
+  tax_id: string
 
   @Column({ length: 9, nullable: false, unique: true })
-  enrolment_number: string;
+  enrolment_number: string
 
   @Column({ nullable: false })
-  name: string;
+  name: string
 
   @Column({ nullable: false, unique: true })
-  email: string;
+  email: string
 
   @Column({ nullable: false })
-  course: string;
+  course: string
 
   @Column({ nullable: false })
-  link_lattes: string;
+  link_lattes: string
 
   @Column()
-  advisor_id: number;
+  advisor_id: number
 
   @Column({ nullable: false })
-  enrollment_date_pgcomp: Date;
+  enrollment_date_pgcomp: Date
 
   @Column({ length: 11, nullable: false })
-  phone_number: string;
+  phone_number: string
 
   @Column({ nullable: false })
-  password: string;
+  password: string
 
   @Column({ nullable: true, default: 'STUDENT' })
-  role: string;
+  role: string
 
   toStudent(): ResponseStudentDTO {
     return new ResponseStudentDTO(
@@ -51,7 +51,7 @@ export class StudentEntity {
       this.advisor_id,
       this.enrollment_date_pgcomp,
       this.phone_number,
-      this.role,
-    );
+      this.role
+    )
   }
 }
