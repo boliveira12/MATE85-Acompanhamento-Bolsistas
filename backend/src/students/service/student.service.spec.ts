@@ -3,6 +3,7 @@ import { StudentsService } from '../service/students.service'
 import { ResponseStudentDTO } from '../model/student.response.dto'
 import { StudentEntity } from '../entities/students.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
+import { NotFoundException } from '@nestjs/common'
 
 describe('User Service', () => {
   let service: StudentsService
@@ -10,11 +11,10 @@ describe('User Service', () => {
   const mockRepository = {
     find: jest.fn(),
     findOneBy: jest.fn(),
-    toStudent: jest.fn(),
     create: jest.fn()
   }
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       providers: [
         StudentsService,
@@ -24,6 +24,12 @@ describe('User Service', () => {
     }).compile()
 
     service = await moduleFixture.resolve(StudentsService)
+  })
+
+  beforeEach(() => {
+    mockRepository.find.mockReset()
+    mockRepository.findOneBy.mockReset()
+    mockRepository.create.mockReset()
   })
 
   describe('findUserById', () => {
@@ -48,8 +54,10 @@ describe('User Service', () => {
       expect(mockRepository.findOneBy).toBeCalledTimes(1)
     })
 
-    it('Should return NotFoundException if not find a user', async() {
-      
+    it('Should return NotFoundException if not find a user', async () => {
+      mockRepository.findOneBy.mockReturnValue(null)
+      expect(service.findById(1)).rejects.toBeInstanceOf(NotFoundException)
+      expect(mockRepository.findOneBy).toBeCalledTimes(1)
     })
   })
 })

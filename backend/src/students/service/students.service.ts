@@ -21,14 +21,9 @@ export class StudentsService {
   }
 
   async findById(id: number) {
-    try {
-      const findStudent = await this.studentRepository.findOneBy({ id })
-      if (findStudent) return findStudent
-
-      throw new NotFoundException('Student not found')
-    } catch (error) {
-      throw new BadRequestException(error.message)
-    }
+    const student = await this.studentRepository.findOneBy({ id })
+    if (!student) throw new NotFoundException('Student not found')
+    return student
   }
 
   async findByCourse(course: string): Promise<StudentEntity[]> {

@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  NotFoundException,
   Param,
   Patch,
   Post,
@@ -34,13 +33,7 @@ export class StudentsController {
 
   @Get('find/byid/:id')
   async findById(@Param('id') id: number) {
-    const student: ResponseStudentDTO = await (
-      await this.studentsService.findById(id)
-    ).toStudent()
-
-    if (!student) throw new NotFoundException('Student not found')
-
-    return student
+    return await (await this.studentsService.findById(id)).toStudent()
   }
 
   @Get('find/byemail')
