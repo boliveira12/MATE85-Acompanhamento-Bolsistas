@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  tests:
+  Test-and-Lint-Frontend:
     runs-on: ubuntu-latest
     steps:
       - name: github/actionsv3
@@ -18,6 +18,23 @@ jobs:
       - name: Lint FRONTEND
         run: npm install && npm run lint
         working-directory: frontend
+      - name: Tests FRONTEND
+        run: npm install && npm run test
+        working-directory: frontend
+        
+  Test-and-Lint-Backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: github/actionsv3
+        uses: actions/checkout@v3
+      - name: Lint BACKEND
+        run: npm install && npm run lint
+        working-directory: backend
+      - name: Tests BACKEND
+        run: npm install && npm run test
+        working-directory: backend
+        
+        
 #     steps:
 #       - name: Use Node.js ${{ matrix.node-version }} in FRONTEND
 #         with:
