@@ -1,19 +1,19 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator'
 
 export class EmailDto implements Readonly<EmailDto> {
   @IsString()
   @IsNotEmpty()
-  to: string;
+  to: string
 
   @IsString()
-  from?: string;
+  from?: string
 
   @IsString()
-  subject?: string;
+  subject?: string
 
   @IsString()
   @IsNotEmpty()
-  template: string;
+  template: string
 
-  context: object;
+  context: object
 }
