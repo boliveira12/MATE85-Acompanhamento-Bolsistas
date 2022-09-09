@@ -5,6 +5,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Node.js](https://nodejs.org/en/)
 - [Typescript](https://www.typescriptlang.org/)
 - [NestJS](https://nestjs.com/)
+- 
+![image](https://user-images.githubusercontent.com/60590932/189267046-da620913-2f82-4cda-b5ae-8a69c8e1890b.png)
+
 
 https://lucid.app/lucidchart/976137d3-7e4d-474e-9ffc-8e4faaf84cb9/edit?viewport_loc=-389%2C-102%2C2554%2C1242%2C0_0&invitationId=inv_bf1a5475-e43a-4192-97ed-f61d0c122bc2#
 
