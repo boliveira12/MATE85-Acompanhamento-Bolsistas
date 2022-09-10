@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config'
 import { DatabaseModule } from './database/database.module'
 import { StudentsModule } from './students/students.module'
 import { EmailModule } from './email/email.module'
+import { AuthModule } from './auth/auth.module'
+import { ProfileModule } from './profile/profile.module'
 
 require('dotenv')
 
@@ -11,7 +13,9 @@ require('dotenv')
     DatabaseModule,
     ConfigModule.forRoot(),
     StudentsModule,
-    EmailModule
+    EmailModule,
+    AuthModule,
+    ProfileModule
   ],
   controllers: [],
   providers: []
