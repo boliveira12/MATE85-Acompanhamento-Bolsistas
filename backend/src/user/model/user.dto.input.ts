@@ -2,8 +2,7 @@ import { IsNumber, IsString } from 'class-validator'
 import { StudentEntity } from 'src/students/entities/students.entity'
 
 export class UserDTO {
-  constructor(user: StudentEntity
-  ) {
+  constructor(user: StudentEntity) {
     this.id = user.id
     this.tax_id = user.tax_id
     this.name = user.name
@@ -15,7 +14,7 @@ export class UserDTO {
   readonly tax_id: string
 
   @IsString()
-  readonly password: string
+  password: string
 
   @IsString()
   readonly name: string
