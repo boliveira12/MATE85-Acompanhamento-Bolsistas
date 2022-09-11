@@ -1,4 +1,18 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateArticleDto } from './create-article.dto';
+export class UpdateArticleDto {
+  constructor(
+    title: string,
+    publication_date: Date,
+    publication_place: string,
+    doi_link: string
+  ) {
+    this.title = title
+    this.publication_date = publication_date
+    this.publication_place = publication_place
+    this.doi_link = doi_link
+  }
 
-export class UpdateArticleDto extends PartialType(CreateArticleDto) {}
+  readonly title: string
+  readonly publication_date: Date
+  readonly publication_place: string
+  readonly doi_link: string
+}
