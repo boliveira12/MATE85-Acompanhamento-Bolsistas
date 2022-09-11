@@ -21,7 +21,9 @@ export class StudentsService {
   ) {}
 
   async findAllStudents(): Promise<ResponseStudentDTO[]> {
-    const students: StudentEntity[] = await this.studentRepository.find()
+    const students: StudentEntity[] = await this.studentRepository.find({
+      relations: ['articles']
+    })
     return students.map((student) => toStudentResponseDTO(student))
   }
 
