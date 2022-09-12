@@ -1,3 +1,5 @@
+import { ResponseArticleDTO } from '../../article/dto/response-article.dto'
+
 export class ResponseStudentDTO {
   constructor(
     id: number,
@@ -10,7 +12,8 @@ export class ResponseStudentDTO {
     advisor_id: number,
     enrollment_date_pgcomp: Date,
     phone_number: string,
-    role: string
+    role: string,
+    articles: ResponseArticleDTO[]
   ) {
     this.id = id
     this.tax_id = tax_id
@@ -23,6 +26,7 @@ export class ResponseStudentDTO {
     this.enrollment_date_pgcomp = enrollment_date_pgcomp
     this.phone_number = phone_number
     this.role = role
+    this.articles = articles
   }
 
   readonly id: number
@@ -46,4 +50,6 @@ export class ResponseStudentDTO {
   readonly phone_number: string
 
   readonly role: string
+
+  readonly articles: ResponseArticleDTO[]
 }
