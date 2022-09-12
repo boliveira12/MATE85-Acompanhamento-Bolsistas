@@ -10,7 +10,7 @@ describe('User Service', () => {
 
   const mockRepository = {
     find: jest.fn(),
-    findOneBy: jest.fn(),
+    findOne: jest.fn(),
     create: jest.fn()
   }
 
@@ -28,7 +28,7 @@ describe('User Service', () => {
 
   beforeEach(() => {
     mockRepository.find.mockReset()
-    mockRepository.findOneBy.mockReset()
+    mockRepository.findOne.mockReset()
     mockRepository.create.mockReset()
   })
   jest.useFakeTimers()
@@ -36,16 +36,16 @@ describe('User Service', () => {
     it('Should return student after Get student by ID', async () => {
       const student = TestUtil.givenValidStudent()
 
-      mockRepository.findOneBy.mockResolvedValue(student)
+      mockRepository.findOne.mockResolvedValue(student)
       const studentResult = await service.findById(1)
       expect(studentResult).toMatchObject({ name: student.name })
-      expect(mockRepository.findOneBy).toBeCalledTimes(1)
+      expect(mockRepository.findOne).toBeCalledTimes(1)
     })
 
     it('Should return NotFoundException if not find a user', async () => {
-      mockRepository.findOneBy.mockReturnValue(null)
+      mockRepository.findOne.mockReturnValue(null)
       expect(service.findById(1)).rejects.toBeInstanceOf(NotFoundException)
-      expect(mockRepository.findOneBy).toBeCalledTimes(1)
+      expect(mockRepository.findOne).toBeCalledTimes(1)
     })
   })
 })
