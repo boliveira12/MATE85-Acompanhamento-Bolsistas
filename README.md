@@ -12,7 +12,9 @@
 [Requisitos](https://docs.google.com/spreadsheets/d/1mP9sHRCpoDyPzAqeXPOXbrTp8NNgGUztj0FgI-nQb7k/edit?usp=sharing) | 
 [Protótipo](https://www.figma.com/file/c2RJlrC3kbbUfr1EI1tzdL/MATE85-Equipe2?node-id=0%3A1) | 
 [Versão de desenvolvimento](#) |
-[Documentação Back-End](https://documenter.getpostman.com/view/20042731/VUxUN5M3)
+[Documentação Back-End](https://documenter.getpostman.com/view/20042731/VUxUN5M3) |
+[Protótipo Web](https://aux-bolsitas.netlify.app/) |
+[API](https://aux-bolsistas.herokuapp.com/v1/students/list/all)
 
 ### Sumário
 
