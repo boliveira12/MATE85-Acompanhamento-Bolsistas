@@ -6,8 +6,8 @@ import { UserService } from '../../user/service/user.service'
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UserService,
-    private jwtService: JwtService
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService
   ) {}
 
   async validateUser(tax_id: string, passwordInserted: string): Promise<any> {
@@ -17,15 +17,15 @@ export class AuthService {
         passwordInserted,
         user.password
       )
-      if (user && validPassword) return user
+      if (user && validPassword) return { ...user, password: undefined }
       throw new HttpException(
         'Wrong credentials provided',
-        HttpStatus.BAD_REQUEST
+        HttpStatus.UNAUTHORIZED
       )
     } catch (error) {
       throw new HttpException(
         'Wrong credentials provided',
-        HttpStatus.BAD_REQUEST
+        HttpStatus.UNAUTHORIZED
       )
     }
   }
@@ -35,9 +35,12 @@ export class AuthService {
       username: user.tax_id,
       sub: user.id
     }
-    console.log(payload)
     return {
-      access_token: this.jwtService.sign(payload)
+      access_token: this.jwtService.sign(payload),
+      id: user.id,
+      role: user.role,
+      tax_id: user.tax_id,
+      name: user.name,
     }
   }
 }
