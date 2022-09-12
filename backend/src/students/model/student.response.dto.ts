@@ -1,4 +1,4 @@
-import { ArticleEntity } from '../../article/entities/article.entity'
+import { ResponseArticleDTO } from '../../article/dto/response-article.dto'
 
 export class ResponseStudentDTO {
   constructor(
@@ -13,7 +13,7 @@ export class ResponseStudentDTO {
     enrollment_date_pgcomp: Date,
     phone_number: string,
     role: string,
-    articles: ArticleEntity[]
+    articles: ResponseArticleDTO[]
   ) {
     this.id = id
     this.tax_id = tax_id
@@ -51,5 +51,5 @@ export class ResponseStudentDTO {
 
   readonly role: string
 
-  readonly articles: ArticleEntity[]
+  readonly articles: ResponseArticleDTO[]
 }

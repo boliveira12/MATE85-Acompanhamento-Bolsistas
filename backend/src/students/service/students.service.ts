@@ -28,24 +28,31 @@ export class StudentsService {
   }
 
   async findById(id: number) {
-    const student = await this.studentRepository.findOneBy({ id })
+    const student = await this.studentRepository.findOne({
+      relations: { articles: true },
+      loadEagerRelations: true,
+      where: {
+        id: id
+      }
+    })
     if (!student) throw new NotFoundException('Student not found')
     return toStudentResponseDTO(student)
   }
 
   async findByCourse(course: string): Promise<ResponseStudentDTO[]> {
-    return await this.studentRepository
-      .find({
-        where: { course: ILike(`%${course}%`) }
-      })
-      .then((students) =>
-        students.map((student) => toStudentResponseDTO(student))
-      )
+    const students = await this.studentRepository.find({
+      relations: { articles: true },
+      loadEagerRelations: true,
+      where: { course: ILike(`%${course}%`) }
+    })
+    return students.map((student) => toStudentResponseDTO(student))
   }
 
   async findByEmail(email: string): Promise<ResponseStudentDTO> {
     const findStudent = await this.studentRepository.findOne({
-      where: { email }
+      where: { email },
+      relations: { articles: true },
+      loadEagerRelations: true
     })
     if (findStudent) return toStudentResponseDTO(findStudent)
 
@@ -54,7 +61,9 @@ export class StudentsService {
 
   async findByAdvisorId(advisor_id: number): Promise<ResponseStudentDTO[]> {
     const students: StudentEntity[] = await this.studentRepository.find({
-      where: { advisor_id }
+      where: { advisor_id },
+      relations: { articles: true },
+      loadEagerRelations: true
     })
     return students.map((student) => toStudentResponseDTO(student))
   }

@@ -1,11 +1,8 @@
-import { ArticleEntity } from '../../article/entities/article.entity'
 import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  PrimaryGeneratedColumn
-} from 'typeorm'
+  ArticleEntity,
+  toArticleResponseDTO
+} from '../../article/entities/article.entity'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { ResponseStudentDTO } from '../model/student.response.dto'
 
 @Entity('student')
@@ -46,8 +43,7 @@ export class StudentEntity {
   @Column({ nullable: true, default: 'STUDENT' })
   role: string
 
-  @JoinColumn({ name: 'student_id' })
-  @OneToMany(() => ArticleEntity, (articles) => articles.student_id)
+  @OneToMany(() => ArticleEntity, (article) => article.student)
   articles: ArticleEntity[]
 }
 
@@ -66,6 +62,6 @@ export function toStudentResponseDTO(
     student.enrollment_date_pgcomp,
     student.phone_number,
     student.role,
-    student.articles
+    student.articles.map((article) => toArticleResponseDTO(article))
   )
 }
